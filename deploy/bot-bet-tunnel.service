@@ -1,0 +1,13 @@
+[Unit]
+Description=SOCKS-туннель до 45.133.19.61 для отправки в Telegram (bot_bet)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+User=deploy
+ExecStart=/usr/bin/ssh -N -D 127.0.0.1:1080 -i /home/deploy/.ssh/tg_tunnel -o IdentitiesOnly=yes -o ExitOnForwardFailure=yes -o ServerAliveInterval=30 -o ServerAliveCountMax=3 -o StrictHostKeyChecking=accept-new deploy@45.133.19.61
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
